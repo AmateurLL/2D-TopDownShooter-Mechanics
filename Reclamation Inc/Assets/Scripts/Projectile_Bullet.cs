@@ -7,7 +7,7 @@ public class Projectile_Bullet : MonoBehaviour
     Rigidbody2D m_RigBody;
 
     public float fSpeed = 0.0f;
-    public int iDamage = 1;
+    public int iDamage = 4;
 
     private float fLifeTime = 4.0f;
 

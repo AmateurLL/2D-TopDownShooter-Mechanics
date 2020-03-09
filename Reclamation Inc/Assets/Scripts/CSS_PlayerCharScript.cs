@@ -75,7 +75,10 @@ public class CSS_PlayerCharScript : MonoBehaviour
 
     void FireGun()
     {
-
+        // test at home on pc for keyboard and mouse input
+        bIsGunFiring = Input.GetMouseButton(0);
+        //Debug.Log(bIsGunFiring);
+        /*
         // Check Player state
         if (Input.GetMouseButtonDown(0))
         {
@@ -85,9 +88,11 @@ public class CSS_PlayerCharScript : MonoBehaviour
         {
             bIsGunFiring = false;
         }
+        */
     }
 
     // Prototype with instantiated bullet object
+    // Physiccal bullets (save for later base on weapon designs) 
     //void FireBullet()
     //{
     //    if (bIsGunFiring)
@@ -110,6 +115,7 @@ public class CSS_PlayerCharScript : MonoBehaviour
     //    }
     //}
 
+    // Raycasting bullets 
     void FireBullet()
     {
         if (bIsGunFiring)

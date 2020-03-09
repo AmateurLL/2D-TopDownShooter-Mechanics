@@ -12,7 +12,7 @@ public class Enemy_ParentClass : MonoBehaviour
     [Space]
     [Header("Character Settings")]
     [SerializeField] float health = 10.0f;
-    [SerializeField] float movementSpeed = 2.0f;
+    [SerializeField] float movementSpeed = 0.2f;
     [SerializeField] float detectRadius = 4.0f;
 
     /// Movement settings
@@ -30,13 +30,14 @@ public class Enemy_ParentClass : MonoBehaviour
     void Start()
     {
         m_RigBody = GetComponent<Rigidbody2D>();
+        m_TargetedObj = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
         //DetectPlayer();
-        //LookAtTarget();
+        LookAtTarget();
     }
 
     void DetectPlayer()
@@ -54,7 +55,7 @@ public class Enemy_ParentClass : MonoBehaviour
                 m_TargetedObj = hitColliders[i].gameObject;
                 Debug.Log("Found Player");
             }
-            Debug.Log(hitColliders.Length);
+            
         }
     }
 
@@ -65,7 +66,8 @@ public class Enemy_ParentClass : MonoBehaviour
 
         if (m_TargetedObj != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, m_TargetedObj.transform.position, movementSpeed);
+            // Seeking movement
+            transform.position = Vector2.MoveTowards(transform.position, m_TargetedObj.transform.position, movementSpeed * Time.deltaTime);
         }
     }
 
@@ -82,6 +84,11 @@ public class Enemy_ParentClass : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void OnDrawGizmosSelected(){
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 
 }
