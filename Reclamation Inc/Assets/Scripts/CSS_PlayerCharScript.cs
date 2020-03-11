@@ -57,20 +57,30 @@ public class CSS_PlayerCharScript : MonoBehaviour
         Debug.DrawRay(transform.position, transform.up * 3, Color.red);
         Debug.DrawRay(m_WeaponPos.position, m_WeaponPos.up * 3, Color.red);
 
-        characterDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        characterAngle = (Mathf.Atan2(characterDirection.y, characterDirection.x) * Mathf.Rad2Deg) - forwardRotCor;
-        Quaternion tempRotedAngle = Quaternion.AngleAxis(characterAngle, Vector3.forward);
-        //transform.rotation = Quaternion.AngleAxis(fCharacterAngle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, tempRotedAngle, bodyRotateSpeed);
+        if(!PlayerManager.Instance.isTaticalMode){
+
+            characterDirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+            characterAngle = (Mathf.Atan2(characterDirection.y, characterDirection.x) * Mathf.Rad2Deg) - forwardRotCor;
+            Quaternion tempRotedAngle = Quaternion.AngleAxis(characterAngle, Vector3.forward);
+            //transform.rotation = Quaternion.AngleAxis(fCharacterAngle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, tempRotedAngle, bodyRotateSpeed);
+        }
+        else{
+            // AI mode on
+
+        }
     }
 
     void CharacterMovementControl()
     {
-        moveHori = Input.GetAxisRaw("Horizontal");
-        moveVerti = Input.GetAxisRaw("Vertical");
+        if(!PlayerManager.Instance.isTaticalMode){
+            
+            moveHori = Input.GetAxisRaw("Horizontal");
+            moveVerti = Input.GetAxisRaw("Vertical");
 
-        m_RigBody.velocity = new Vector2(moveHori * movementSpeed, moveVerti * movementSpeed);
-
+            m_RigBody.velocity = new Vector2(moveHori * movementSpeed, moveVerti * movementSpeed);
+        }
+        // else do nothing and become a mindless turret
     }
 
     void FireGun()

@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTimer: 0
   spawnTime: 3
-  spawnDistRange: 50
+  spawnDistRange: 10
 --- !u!1001 &651474621608009501
 PrefabInstance:
   m_ObjectHideFlags: 0

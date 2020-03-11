@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static PlayerManager Instance;
 
     [Header("Ref List")]
     [SerializeField] public GameObject m_PlayerChar;
@@ -12,6 +13,11 @@ public class PlayerManager : MonoBehaviour
     [Space]
     [Header("Status")]
     [SerializeField] public bool isTaticalMode = false;
+
+    void Awake(){
+        if (Instance == null)
+            Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
