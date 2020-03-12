@@ -10,11 +10,12 @@ public class CSS_PlayerCharScript : MonoBehaviour
     [SerializeField] LineRenderer m_BulletTrail;
     [SerializeField] LayerMask m_EnemyLayerMask;
 
-    // Prototype for instance bullet object
-    //[SerializeField] public GameObject m_BulletPrefabPointer;
+    [Space]
+    [Header("Character Stats")]
+    [SerializeField] float healthPoints = 20.0f;
 
     [Space]
-    [Header("Character Body Settings")]
+    [Header("Character Movement Settings")]
     [SerializeField] float movementSpeed = 3.0f;
     [SerializeField] float bodyRotateSpeed = 0.2f;
 
@@ -161,6 +162,19 @@ public class CSS_PlayerCharScript : MonoBehaviour
                 // Trigger Reset
                 gunTriggerTime = fireRate;
             }
+        }
+    }
+
+    public void TakeDamage(float _dmg){
+
+        healthPoints -= _dmg;
+        CheckHealth();
+    }
+
+    void CheckHealth(){
+        if(healthPoints >= 0.0f){
+            // Call Defeat screen in game manager
+            GameManager.Instance.LoseGame();
         }
     }
 }

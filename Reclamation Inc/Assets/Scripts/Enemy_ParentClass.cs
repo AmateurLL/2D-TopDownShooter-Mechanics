@@ -14,6 +14,9 @@ public class Enemy_ParentClass : MonoBehaviour
     [SerializeField] float health = 10.0f;
     [SerializeField] float movementSpeed = 0.2f;
     [SerializeField] float detectRadius = 4.0f;
+    [SerializeField] float attackDamage = 4.0f;
+    [SerializeField] float attackSpeed = 2.0f;
+    [SerializeField] float attackTimer = 0.0f;
 
     /// Movement settings
     // Walking settings
@@ -36,6 +39,7 @@ public class Enemy_ParentClass : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ChargeContactDamage();
         //DetectPlayer();
         LookAtTarget();
     }
@@ -83,6 +87,31 @@ public class Enemy_ParentClass : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision collision){
+
+        if(collision.collider.gameObject.tag == "Player"){
+            Debug.Log("Player touched");
+            //collision.gameObject.GetComponent<CSS_PlayerCharScript>().TakeDamage(attackDamage);
+            ContactDamage(collision.gameObject);
+        }
+
+    }
+
+    void ContactDamage(GameObject _Player){
+
+        if(attackTimer <= attackSpeed){
+            _Player.GetComponent<CSS_PlayerCharScript>().TakeDamage(attackDamage);
+            attackTimer = 0.0f;
+        }
+    }
+
+    void ChargeContactDamage(){
+
+        if(attackTimer >= attackSpeed){
+            attackTimer += Time.deltaTime;
         }
     }
 
