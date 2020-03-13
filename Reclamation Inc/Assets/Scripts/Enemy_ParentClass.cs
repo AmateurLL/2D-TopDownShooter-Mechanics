@@ -17,6 +17,7 @@ public class Enemy_ParentClass : MonoBehaviour
     [SerializeField] float attackDamage = 4.0f;
     [SerializeField] float attackSpeed = 2.0f;
     [SerializeField] float attackTimer = 0.0f;
+    [SerializeField] int creditValue = 5;
 
     /// Movement settings
     // Walking settings
@@ -46,6 +47,10 @@ public class Enemy_ParentClass : MonoBehaviour
 
     void DetectPlayer()
     {
+
+        // TODO: Create different detection states for spawned purposes
+
+        // Docile Mode Colliders fixed forgot to include gameobject call
         Vector2 temp2DPosition = new Vector2(transform.position.x, transform.position.y);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(temp2DPosition, detectRadius);
 
@@ -53,11 +58,11 @@ public class Enemy_ParentClass : MonoBehaviour
         for (int i = 0; i < hitColliders.Length; i++)
         {
             // Checking Objects tags
-            if(hitColliders[i].tag == "Player")
+            if(hitColliders[i].gameObject.tag == "Player")
             {
                 // Assigning target pointer
                 m_TargetedObj = hitColliders[i].gameObject;
-                Debug.Log("Found Player");
+                //Debug.Log("Found Player");
             }
             
         }
@@ -79,20 +84,21 @@ public class Enemy_ParentClass : MonoBehaviour
     {
         health -= _dmg;
         CheckHealth();
-        Debug.Log("Enemy hit");
+        //Debug.Log("Enemy hit");
     }
 
     private void CheckHealth()
     {
         if(health <= 0)
         {
+            GameManager.Instance.CreditsCount(creditValue);
             Destroy(gameObject);
         }
     }
 
-    void OnCollisionEnter2D(Collision collision){
+    void OnCollisionEnter2D(Collision2D collision){
 
-        if(collision.collider.gameObject.tag == "Player"){
+        if(collision.gameObject.tag == "Player"){
             Debug.Log("Player touched");
             //collision.gameObject.GetComponent<CSS_PlayerCharScript>().TakeDamage(attackDamage);
             ContactDamage(collision.gameObject);

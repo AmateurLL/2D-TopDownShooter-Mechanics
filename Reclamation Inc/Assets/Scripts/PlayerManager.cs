@@ -37,6 +37,7 @@ public class PlayerManager : MonoBehaviour
         if(isTaticalMode){
             // Free Movement Leaving PLayer Character In AI mode
             this.GetComponent<CameraControls>().CameraPlanningMode(m_MainCamera);
+            this.GetComponent<CameraControls>().CameraZoomControl();
         }
         else{
             // Controlling PlayerChar
@@ -48,6 +49,7 @@ public class PlayerManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             if(isTaticalMode){
                 isTaticalMode = false;
+                m_MainCamera.orthographicSize = this.GetComponent<CameraControls>().CAMDEFSIZE;
             }else{
                 isTaticalMode = true;
             }

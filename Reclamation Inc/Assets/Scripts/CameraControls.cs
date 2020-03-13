@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraControls : MonoBehaviour
 {
-    private float cameraSpeed = 5.0f;
+    public float CAMDEFSIZE = 10.0f;
+    private float cameraSpeed = 10.0f;
     private float cameraDragSpeed = 2.0f;
 
     // When player is following character
@@ -31,5 +32,9 @@ public class CameraControls : MonoBehaviour
         if(Input.GetKey(KeyCode.D)){
             _MainCamera.transform.Translate(Vector3.right * (cameraSpeed * Time.deltaTime));
         }
+    }
+
+    public void CameraZoomControl(){
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * Camera.main.orthographicSize, 10.0f, 25.0f);
     }
 }

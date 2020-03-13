@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Components")]
+    [SerializeField] GameObject creditsUIText;
+
+    [Space]
+    [Header("Game Stats")]
+    [SerializeField] public int moneyCredits = 0;
 
     void Awake(){
         if (Instance == null)
@@ -18,14 +25,14 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-    /*
+    
     // Update is called once per frame
     void Update()
     {
-        
+        // Credits UI Text
+        creditsUIText.GetComponent<Text>().text = "$ " + moneyCredits;
     }
-    */
+    
 
     public void LoseGame(){
         // Call Lost Game screen
@@ -34,4 +41,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void CreditsCount(int _add){
+        moneyCredits += _add;
+    }
 }
