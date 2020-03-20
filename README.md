@@ -1,5 +1,8 @@
 # 2D-TopDownShooter-Mechanics
 
+Game Features
++ Survival Defence
+
 Mechanics 
 + Player WASD movement control
 + Basic enemey follow AI
@@ -9,3 +12,4 @@ Mechanics
 + Player physical bullet spawn damage
 + Player raycast bullet spawn damage
 + Player rotate movement realism game feel
++ Basic Game loop established
